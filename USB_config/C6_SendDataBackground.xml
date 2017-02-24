@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descTool>
+	<toolOptions>
+		<!-- 0= false, 1 = true -->
+		<runGUI>0</runGUI>
+		<workspace>C:\msp430usb\msp430_usb\src\examples\CDC_virtualCOMport\C6_SendDataBackground\USB_config</workspace>
+		<projectName>USB_config</projectName>
+	</toolOptions>
+	<toolConfig>
+		<treeConfig>
+			<!-- 0 = MSP430F5xx/F6xx, 1 = MSP432xx -->
+			<MSP mcuFam="0">
+				<mspConfig>
+					<!-- 0= not selected, 1 = selected -->
+					<disableXtalOnSus>1</disableXtalOnSus>
+					<!-- 
+						0 = 1.5 MHz
+						1 = 1.6 MHz
+						2 = 1.7778 MHz
+						3 = 1.8432 MHz
+						4 = 1.8461 MHz
+						5 = 1.92 MHz
+						6 = 2.0 MHz
+						7 = 2.4 MHz
+						8 = 2.66667 MHz
+						9 = 3.0 MHz
+						10 = 3.2 MHz
+						11 = 3.5556 MHz
+						12 = 3.579546 MHz
+						13 = 3.84 MHz
+						14 = 4 MHz
+						15 = 4.1739 MHz
+						16 = 4.1943 MHz
+						17 = 4.332 MHz
+						18 = 4.3636 MHz
+						19 = 4.5 MHz
+						20 = 4.8 MHz
+						21 = 5.33 MHz
+						22 = 5.76 MHz
+						23 = 6.0 MHz
+						24 = 6.4 MHz
+						25 = 7.2 MHz
+						26 = 7.68 MHz
+						27 = 8.0 MHz
+						28 = 9.0 MHz
+						29 = 9.6 MHz
+						30 = 10.66 MHz
+						31 = 12.0 MHz
+						32 = 12.8 MHz
+						33 = 14.4 MHz
+						34 = 16.0 MHz
+						35 = 16.9344 MHz
+						36 = 16.94118 MHz
+						37 = 18.0 MHz
+						38 = 19.2 MHz
+						39 = 24.0 MHz
+						40 = 25.6 MHz
+						41 = 26.0 MHz
+						42 = 32 MHz  -->
+					<XT2OscFreq>14</XT2OscFreq>
+					<!-- 0 = NO_DMA
+						 1 = DMA_CHANNEL0
+						 2 = DMA_CHANNEL1
+						 3 = DMA_CHANNEL2
+						 4 = DMA_CHANNEL3
+						 5 = DMA_CHANNEL4
+						 6 = DMA_CHANNEL5
+						 7 = DMA_CHANNEL6
+						 8 = DMA_CHANNEL7  -->
+					<DMAChannel>1</DMAChannel>
+					<!-- 0= not selected, 1 = selected -->
+					<bypassXT2>0</bypassXT2>
+					<!-- 0= not selected, 1 = selected -->
+					<useSYSBIOS>0</useSYSBIOS>
+					<!-- 0= not selected, 1 = selected -->
+					<driveVBUSfromExtSupp>0</driveVBUSfromExtSupp>
+				</mspConfig>
+				<USBDevice>
+						<deviceProp>
+							<!-- For hex prefix with "0x", otherwise is processed as decimal-->
+							<vid>0x2047</vid>
+							<!-- For hex prefix with "0x", otherwise is processed as decimal-->
+							<pid>0x0300</pid>
+							<vndStr>Texas Instruments</vndStr>
+							<prodStr>MSP430-USB Example</prodStr>
+							<!-- For hex prefix with "0x", otherwise is processed as decimal-->
+							<devRelNum>0x200</devRelNum>
+							<!-- 0= not selected, 1 = selected -->
+							<useSerNum>1</useSerNum>
+						</deviceProp>
+						<config>
+							<configParam>
+								<!-- 0= not selected, 1 = selected -->
+								<selfPowered>0</selfPowered>
+								<!-- 0= not selected, 1 = selected -->
+								<remWkupSup>0</remWkupSup>
+								<!-- 0  = 100 mA , 1  = 98 mA, 2  = 96 mA,
+									 3  =  94 mA , 4  = 92 mA, 5  = 90 mA,
+									 6  =  88 mA , 7  = 86 mA, 8  = 84 mA,
+									 9  =  82 mA , 10 = 80 mA, 11 = 78 mA,
+									 12  = 76 mA , 13 = 74 mA, 14 = 72 mA,
+									 15  = 70 mA , 16 = 68 mA, 17 = 66 mA,
+									 18  = 64 mA , 19 = 62 mA, 20 = 60 mA,
+									 21  = 58 mA , 22 = 56 mA, 23 = 54 mA,
+									 24  = 52 mA , 25 = 50 mA, 26 = 48 mA,
+									 27  = 46 mA , 28 = 44 mA, 29 = 42 mA,
+									 30  = 40 mA , 31 = 38 mA, 32 = 36 mA,
+									 33  = 34 mA , 34 = 32 mA, 35 = 30 mA,
+									 36  = 28 mA , 37 = 26 mA, 38 = 24 mA,
+									 39  = 22 mA , 40 = 20 mA, 41 = 18 mA,
+									 42  = 16 mA , 43 = 14 mA, 44 = 12 mA,
+									 45  = 10 mA , 46 =  8 mA, 47 =  6 mA,
+									 48  =  4 mA , 49 =  2 mA, 50 =  0 mA -->
+								<maxPowDrain>0</maxPowDrain>
+								<configStr>MSP430 USB</configStr>
+							</configParam>
+							<interfaces>
+								<cdcInterface intString="MSP430-USB Example" />
+							</interfaces>
+						</config>
+				</USBDevice>
+			</MSP>
+		</treeConfig>
+	</toolConfig>
+	<!-- 0= don't generate, 1 = generate -->
+	<codeGeneration generate="1" generateINF="0" generateXML="0" />
+</descTool>
