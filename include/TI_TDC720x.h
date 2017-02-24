@@ -78,8 +78,8 @@
 #define CAL2SHFT  (0x06)
 // Start of change by Jeeva
 //adjusting the Max_stop to 1 from 05
-// #define MAX_STOPS (0x05)      //
-#define MAX_STOPS (0x01)
+//#define MAX_STOPS (0x05)      //
+//#define MAX_STOPS (0x01)
 // end of change by jeeva
 
 #define MEAS_RESULT_REG_NUM (0x0D)
