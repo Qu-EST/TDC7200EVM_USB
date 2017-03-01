@@ -86,7 +86,7 @@ uint8_t *vbuf;
 
 uint8_t cmdResponseString[MAX_STR_LENGTH] = "";
 uint8_t single_shot_measure_state=0;
-uint8_t tof_graph_state=0;
+uint8_t tof_graph_state=0;// Stream directly on UART1 - Lac
 uint8_t graph_delay_sweep_state=0;
 uint8_t double_resolution=0;
 uint8_t current_tdc = TDC720x_TDC1;
@@ -151,10 +151,10 @@ void main(void)
   // oscillator fail if LED keeps flashing after InitMCU     
   InitMCU();
   
-  // Initilaize MSP430 UART A1 Block 
+  // Initialize MSP430 UART A1 Block
   InitUART();
   
-  // Initilaize MSP430 SPI Block 
+  // Initialize MSP430 SPI Block
   TI_TDC720x_SPISetup();                                                        
   
   // init interval timer (timer1)
@@ -180,8 +180,16 @@ void main(void)
   while (1)
   {
 //    __bis_SR_register(LPM0_bits + GIE);                                        // Enter LPM0, enable interrupts
-    __no_operation();                                                          // For debugger 
-    USBCommunicationTask();
+    __no_operation();    // For debugger
+     if (Command_Start_TOF_Graph)
+    {
+      tof_graph_state = 1;
+     // host_response = 1;
+    }
+    //USBCommunicationTask(); //temporary dont call this function, only output data - Lac
+  // Stream data on UART - Lac
+     if (TDC720x_UART_Stream)
+        TDC720x_calc(ubuf, TDC720x_TDC1);
     if (next_trigger_time)
     {
       next_trigger_time = 0;
@@ -263,6 +271,12 @@ void USBCommunicationTask(void)
                   bCDCDataReceived_event = FALSE;                                  // Clear flag early -- just in case execution breaks below because of an error
                   count = cdcReceiveDataInBuffer(cmdResponseString,MAX_STR_LENGTH,CDC0_INTFNUM);         // Count has the number of bytes received into dataBuffer    
                   send_response = handleHostCommand(cmdResponseString,count);
+                  // add print statement to check - LAC
+                  /*uint8_t outString[128];
+                  sprintf((char *)outString,"cmd response string %x",cmdResponseString);
+                  putsUART((unsigned char *)outString,strlen((char *)outString));
+                  sprintf((char *)outString,"send response %d", send_response);
+                  putsUART((unsigned char *)outString,strlen((char *)outString));*/
                   if (send_response)
                   {
                     if(cdcSendDataInBackground((BYTE*)cmdResponseString,MAX_STR_LENGTH,CDC0_INTFNUM,0))             // Send data to host
@@ -439,11 +453,17 @@ __interrupt void UNMI_ISR (void)
 //******************************************************************************
 void TI_TDC720x_reg_init(uint8_t dev)
 {
-
-  TI_TDC720x_SPIByteWriteReg(TI_TDC720x_CONFIG1_REG, 0x00, dev); // Default Mode 2
+    // CONFIG1 - Default Mode 1, calibration after interrupt, with trigger 0x81 -Lac
+    // Mode 1 , no calibration after interrupt, trigger does not effect 0x00 - Lac
+  TI_TDC720x_SPIByteWriteReg(TI_TDC720x_CONFIG1_REG, 0x81, dev);
+  // CONFIG2 - 10 clock periods calibration, Single START-STOP, 1 measurement cycle - Lac
   TI_TDC720x_SPIByteWriteReg(TI_TDC720x_CONFIG2_REG, 0x40, dev); // cal2 period = 10 clocks
-  TI_TDC720x_SPIByteWriteReg(TI_TDC720x_INTRPT_STATUS_REG, 0x0B, dev); // clear interrupt status
+  //Interrupt detected after a new measurement, coarse overflow detected, clock overflow not detected,
+  //Measurement has started, measurement has completed - Lac
+  TI_TDC720x_SPIByteWriteReg(TI_TDC720x_INTRPT_STATUS_REG, 0xD8, dev); // clear interrupt status
+
   TI_TDC720x_SPIByteWriteReg(TI_TDC720x_INTRPT_MASK_REG, 0x07, dev); // interrupts enabled
+
   TI_TDC720x_SPIByteWriteReg(TI_TDC720x_COARSE_COUNTER_OVH_REG, 0xFF, dev); // default
   TI_TDC720x_SPIByteWriteReg(TI_TDC720x_COARSE_COUNTER_OVL_REG, 0xFF, dev); // default
   TI_TDC720x_SPIByteWriteReg(TI_TDC720x_CLOCK_COUNTER_OVH_REG, 0xFF, dev); // default

@@ -81,6 +81,7 @@ uint8_t handleHostCommand(uint8_t *pBuf, uint16_t pSize)
   
   nxt_byte = char2nibble(pBuf[0]);
   nxt_byte = (nxt_byte << 4) + char2nibble(pBuf[1]);
+  //nxt_byte = Command_Set_SPI_DOUTx;
   switch(nxt_byte)
   {
     case Command_LoopPacket:  

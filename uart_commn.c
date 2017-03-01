@@ -60,7 +60,8 @@ void InitUART(void){
   UCAxCTL0 = 0x00;                          // No parity, 8-N-1 mode
   UCAxCTL1 |= UCSSEL__SMCLK;                // Select 12MHz SMCLK as clock source for the UART
   UCAxBR = UART_BAUDRATE_REG;               // defines baudrate
-  UCAxMCTL =  (UCBRF_0|UCBRS_3);            //    38400  baudrate selection @ 4MHz 
+  UCAxMCTL =  (UCBRF_0|UCBRS_3);            //    38400  baudrate selection @ 4MHz
+ // UCAxMCTL =  (UCBRF_0|UCBRS_6);            //    9600 baudrate selection @ 4MHz
 //  UCAxMCTL =  (UCBRF_0|UCBRS_4);            //  57600  baudrate selection @ 4MHz  
   UCAxIFG &= ~UCAxRXIFG;          //Clear RX IFG
   

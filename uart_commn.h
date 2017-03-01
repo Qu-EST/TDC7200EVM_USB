@@ -37,7 +37,7 @@
 #define SMCLK_FREQ 4000000 // SMCLK frequency of MCU, in Hz
 #define USCI_A_MODULE  1     // Select which USCI_A module to use [0-1] 
 #define UART_BAUDRATE   38400 //Specify baudrate
-//#define UART_BAUDRATE  57600 //Specify baudrate
+//#define UART_BAUDRATE  230400 //Specify baudrate
 #define UART_BAUDRATE_REG  (unsigned short)(SMCLK_FREQ/UART_BAUDRATE)
 
 //define uart registers

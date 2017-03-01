@@ -85,8 +85,11 @@ void print_start2stopn(void)
 #endif
   for (i=0;i<MAX_STOPS;i++)
   {
-    sprintf((char *)outString, "Start_to_Stop[%d]: %4.6f    ", i+1, start2stop[i]);
-    putsUART((unsigned char *)outString,strlen((char *)outString));    
+    //sprintf((char *)outString, "Start_to_Stop[%d]: %4.6f    ", i+1, start2stop[i]);
+    sprintf((char *)outString, "TOF: %4.6f    ", start2stop[i]); // only print out one stop - Lac
+    putsUART((unsigned char *)outString,strlen((char *)outString));
+
+
   }
   sprintf((char *)outString, " \r\n");
   putsUART((unsigned char *)outString,strlen((char *)outString));  
